@@ -57,7 +57,6 @@ def admin_panel(request):
     #user = User.objects.get(username=username)
     #except User.DoesNotExist:
     # return HttpResponse("User not found", status=403)
-
     #if user.role != 'admin':
         #return HttpResponse("Forbidden", status=403)
     #return HttpResponse("Admin Panel")

@@ -15,5 +15,7 @@ class User(models.Model):
 #class User(AbstractUser):
     #role = models.CharField(max_length=20, default="user")
 
+#Uncomment line 114 in settings.py!
+
 #password can be set in user creation with user.set_password("1234") && user.save()
 #password can be verified with user.check_password("input")
