@@ -41,9 +41,9 @@ def dashboard(request):
     #issue 5
     #XSS as user session variable could include a script.
     #correct way to do it:
-    #return render(request, 'dashboard.html', {'user': user}) where django handles the escape of any javascript etc.
+    return render(request, 'dashboard.html', {'user': user}) #where django handles the escape of any javascript etc.
     #see also templates/dashboard.html    
-    return HttpResponse(f"Welcome {user}! <br> <a href='/admin'>Admin Panel</a>") 
+    #return HttpResponse(f"Welcome {user}! <br> <a href='/admin'>Admin Panel</a>") 
 
 # No access control, anybody can see the admin panel
 # Issue 4
@@ -57,6 +57,7 @@ def admin_panel(request):
     #user = User.objects.get(username=username)
     #except User.DoesNotExist:
     # return HttpResponse("User not found", status=403)
+
     #if user.role != 'admin':
         #return HttpResponse("Forbidden", status=403)
     #return HttpResponse("Admin Panel")
