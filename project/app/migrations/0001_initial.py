@@ -4,20 +4,35 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('username', models.CharField(max_length=50)),
-                ('password', models.CharField(max_length=50)),
-                ('role', models.CharField(default='user', max_length=20)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                # Basic fields
+                ("username", models.CharField(max_length=50, unique=True)),
+                (
+                    "password",
+                    models.CharField(max_length=200),
+                ),  # you changed this to support hashing later
+                # New fields
+                ("full_name", models.CharField(max_length=100)),
+                ("birth_date", models.DateField()),
+                ("email", models.EmailField(unique=True)),
+                # role field (unchanged)
+                ("role", models.CharField(default="user", max_length=20)),
             ],
         ),
     ]

@@ -1,4 +1,39 @@
-<!-- UNSAFE-->
+<!-- UNSAFE -->
 <h2>Welcome {{ user|safe }}!</h2>
 <!-- Correct implementation: <h2>Welcome {{ user }}!</h2> -->
 <a href="/admin">Admin Panel</a>
+
+<hr />
+
+<h3>All Registered Users</h3>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Password (plaintext)</th>
+        <th>Full Name</th>
+        <th>Birth Date</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.username|safe }}</td>
+        <td>{{ u.password|safe }}</td>
+        <td>{{ u.full_name|safe }}</td>
+        <td>{{ u.birth_date }}</td>
+        <td>{{ u.email|safe }}</td>
+        <td>{{ u.role }}</td>
+        <!--  <td>{{ u.id }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ u.password }}</td>
+        <td>{{ u.full_name }}</td>
+        <td>{{ u.birth_date }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.role }}</td> -->
+    </tr>
+    {% endfor %}
+</table>

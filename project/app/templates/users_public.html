@@ -1,0 +1,19 @@
+<h1>All Users</h1>
+
+<table border="1">
+    <tr>
+        <th>Username</th>
+        <th>Full Name</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <!-- Flaw 5: XSS -->
+        <td>{{ u.username|safe }}</td>
+        <td>{{ u.full_name|safe }}</td>
+        <!-- fix: -->
+        <!--<td>{{ u.username }}</td>
+        <td>{{ u.full_name }}</td> -->
+    </tr>
+    {% endfor %}
+</table>
