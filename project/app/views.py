@@ -67,7 +67,7 @@ def dashboard(request):
 
     current_user = request.session["user"]
 
-    # ❌ Vulnerability: expose all user info to any logged-in user
+    # XSS Vulnerability: expose all user info to any logged-in user
     all_users = User.objects.all()
 
     return render(
