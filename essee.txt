@@ -30,6 +30,8 @@ The problem with this flaw is that passwords are stored in plaintext. This means
 
 The way to fix this is to use django’s own solution, or with another framework use that framework’s solution. The fix is located here: https://github.com/alexisvarjo/cybsec-project/blob/476d56e4fd125a159b669238efe248d2da8e6bec/project/app/models.py#L23 and can be toggled on or off here: https://github.com/alexisvarjo/cybsec-project/blob/476d56e4fd125a159b669238efe248d2da8e6bec/project/app/models.py#L7. The abstraction django provides uses salting and hashing behind the scenes. Even if a data breach were to happen, salting prevents rainbow table attacks, and the hashing algorithm used is deliberately slow to run, to slow down brute-force attempts. The idea with salting is to add a unique, random string of characters to all passwords. This is to slow down the use of precomputed password-to-hash tables. It also has the benefit of giving two users with the same password different hashes.
 
+The included picture 'flaw-3.png' shows how the data looks in the database. The entries that are added when the flaw is present, have plain text passwords and the entries that are added without the flaw have only hashes in the database.
+
 
 FLAW 4:
 The fourth flaw is that there’s no access control for the admin panel. If anybody tries to access it, they can. This is OWASP #5 and referred to as broken access control. The flaw is located here: https://github.com/alexisvarjo/cybsec-project/blob/476d56e4fd125a159b669238efe248d2da8e6bec/project/app/views.py#L85 and can be turned on or off here: https://github.com/alexisvarjo/cybsec-project/blob/476d56e4fd125a159b669238efe248d2da8e6bec/project/app/views.py#L20.
@@ -40,10 +42,10 @@ The way to fix this would be to check firstly if the user is logged in, and then
 The demo is done with test user that has user name “test” and password “1234”
 
 FLAW 5:
-The fifth flaw is a XSS vulnerability (OWASP #7). The flaw is located here: https://github.com/alexisvarjo/cybsec-project/blob/bccc25bf042f74a06c2a4895af4f1a53fcfa3bbc/project/app/views.py#L37 
+The fifth flaw is a XSS vulnerability (OWASP #7). The flaw is located here: https://github.com/alexisvarjo/cybsec-project/blob/9f3f14349073dee314924e073d34274ae920b773/project/app/views.py#L70 and https://github.com/alexisvarjo/cybsec-project/blob/9f3f14349073dee314924e073d34274ae920b773/project/app/templates/dashboard.html#L18 as the username is being passed with the safe parameter.
 
 The flaw arises when the code requests a user session variable, where a user with malicious intent could include a script. The risks of this kind of vulnerability include account hijacking via stealing cookies or session tokens, injecting malicious html / js to the web page, privilege escalation and sensitive data exposure. Thus this issue is very serious. There are there different types of XSS: stored XSS that persists in a DB; reflected XSS via URL parameters; and DOM-based XSS inside JS code.
 
-The way to fix this flaw is located here: https://github.com/alexisvarjo/cybsec-project/blob/bccc25bf042f74a06c2a4895af4f1a53fcfa3bbc/project/app/views.py#L44. In the fixed version django handles escaping any javascript or html that could be injected via the vulnerability.
+The way to fix this flaw is located here: https://github.com/alexisvarjo/cybsec-project/blob/9f3f14349073dee314924e073d34274ae920b773/project/app/templates/dashboard.html#L19. In the fixed version django handles escaping any javascript or html that could be injected via the vulnerability.
 
 This flaw is demoed with a demo user that has the username of “<img src=x onerror=alert(1)>” and password “pw”.
