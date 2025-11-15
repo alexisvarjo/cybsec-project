@@ -1,6 +1,7 @@
 LINK: https://github.com/alexisvarjo/cybsec-project
 I recommend creating your own virtual environment when initializing the project.
 The OWASP list I’m using is the 2017 top 10 web application security risks list.
+You can seed the application by running python manage.py seed_users
 
 FLAW 1:
 The first flaw is an SQL injection (OWASP #1). The flaw occurs here: https://github.com/alexisvarjo/cybsec-project/blob/bccc25bf042f74a06c2a4895af4f1a53fcfa3bbc/project/app/views.py#L15.
@@ -11,7 +12,7 @@ Historically SQL injections have been one of the most exploited vulnerabilities.
 
 The best way to fix this flaw would be to use parametric queries. In many frameworks and libraries there are ready made solutions where the code only takes a parameter to the queries, nothing else. These parameters ensure that something like “--” will not alter the query by starting a comment, but will just be interpreted as those characters in the query.
 
-I have included the fix in commented code, which starts here: https://github.com/alexisvarjo/cybsec-project/blob/bccc25bf042f74a06c2a4895af4f1a53fcfa3bbc/project/app/views.py#L16
+I have included the fix in commented code, which starts here: https://github.com/alexisvarjo/cybsec-project/blob/bccc25bf042f74a06c2a4895af4f1a53fcfa3bbc/project/app/views.py#L37 and https://github.com/alexisvarjo/cybsec-project/blob/bccc25bf042f74a06c2a4895af4f1a53fcfa3bbc/project/app/models.py#L7
 
 The input used for demoing this vulnerability is the following:”admin’ -- “ and no password.
 
